@@ -42,8 +42,8 @@ def processTweet(tweet):
     tweet = re.sub(r'\$\w*', '', tweet)
     # Remove hyperlinks
     tweet = re.sub(r'https?:\/\/.*\/\w*', '', tweet)
-    # Remove Punctuation and split 's, 't, 've with a space for filter
-    tweet = re.sub(r'[' + string.punctuation.replace('@', '') + ']+', ' ', tweet)
+    # # Remove Punctuation and split 's, 't, 've with a space for filter
+    # tweet = re.sub(r'[' + string.punctuation.replace('@', '') + ']+', ' ', tweet)
     # Remove whitespace (including new line characters)
     tweet = re.sub(r'\s\s+', ' ', tweet)
     # Remove single space remaining at the front of the tweet.
@@ -114,11 +114,12 @@ def main():
 
     # Noun phrase analysis
     tweets_noun_phrases = []
-    for tweet in processed_corpus:
+    for tweet in processed_corpus[0:10]:
         noun_phrases = TextBlob(' '.join(tweet)).noun_phrases
+        print(noun_phrases)
         for phrase in noun_phrases:
             tweets_noun_phrases.append(phrase)
     
-    pprint.pprint(Counter(tweets_noun_phrases).most_common(10))
+    pprint.pprint(Counter(tweets_noun_phrases).most_common(20))
 
 main()
